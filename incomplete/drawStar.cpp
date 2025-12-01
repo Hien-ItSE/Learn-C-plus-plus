@@ -329,7 +329,6 @@ int main() {
                 //Step 2: print the stars
                 for (int j = 0; j < numStars; j++) cout << "*";
                 //Step 3: Adjust the numbers and go to the new line
-                cout << endl;
             }
 
 
