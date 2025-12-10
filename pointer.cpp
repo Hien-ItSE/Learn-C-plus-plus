@@ -7,6 +7,33 @@ void swap(int* a, int* b) {  // Truyền con trỏ
     *b = temp;
 }
 
+// Hàm nhận con trỏ
+void increment(int* ptr) {
+    (*ptr)++;
+}
+
+// 3 cách khai báo GIỐNG NHAU:
+void printArray1(int arr[], int size) { // Dùng index
+    for (int i = 0; i < size; i++) {
+        cout << arr[i] << " ";
+    }
+    cout << endl;
+}
+
+void printArray2(int* arr, int size) {  // Dùng pointer
+    for (int i = 0; i < size; i++) {
+        cout << arr[i] << " ";
+    }
+    cout << endl;
+}
+
+void printArray3(int* arr, int size) {  // Dùng pointer arithmetic
+    for (int i = 0; i < size; i++) {
+        cout << *(arr + i) << " ";
+    }
+    cout << endl;
+}
+
 int main() {
     int x = 100, y = 20;
     int* ptr = &x;                                             // ptr là con trỏ(pointer) lưu địa chỉ của x
@@ -100,8 +127,8 @@ int main() {
 
     cout << "arr[2] = " << arr[2] << endl;  // 30
     cout << "Ptr[2] = " << Ptr[2] << endl;  // 30
-    cout << "*(Ptr+2) = " << *(Ptr + 2) << endl << endl;  // 30
-
+    cout << "*(Ptr+2) = " << *(Ptr + 2) << endl
+         << endl;  // 30
 
     cout << "Duyet array bang con tro(pointer)" << endl;
 
@@ -111,7 +138,7 @@ int main() {
         cout << Ptr[i] << " ";
     }
     cout << endl;
-    
+
     // C2: Use pointer arithmetic
     cout << "C2: " << endl;
     for (int i = 0; i < 5; i++) {
@@ -125,7 +152,51 @@ int main() {
     for (int* p = arr; p < end; p++) {
         cout << *p << " ";
     }
-    cout << endl;
+    cout << endl
+         << endl;
+
+    // POINTER ARITHMETIC (SỐ HỌC CON TRỎ)
+    cout << "POINTER ARITHMETIC: " << endl;
+    cout << "Ptr tro den: " << *Ptr << endl;  // 10
+
+    // Tăng con trỏ (+)
+    Ptr++;                                      // Ptr += 1
+    cout << "Ptr++ tro den: " << *Ptr << endl;  // 20
+
+    Ptr = arr;
+    cout << "Ptr=arr tro den: " << *Ptr << endl;  // 10
+    
+    Ptr++;
+    cout << sizeof(Ptr-arr);
+
+    char arrChar[3] = {'A', 'B', 'C'};
+    char* pChar = arrChar;
+    cout << "\npChar: " << (void*)pChar << endl;
+    cout << "\npChar: " << pChar << endl;
+
+
+    cout << "Truyen con tro vao ham: " << endl;
+    g = 10;
+    increment(&g);
+    cout << "Sau khi goi ham, g = " << g << endl << endl;
+
+
+    // Truyền array vào hàm (thực chất là con trỏ)
+    int numbers[5] = {10, 20, 30, 40, 50};
+    
+    printArray1(numbers, 5);
+    printArray2(numbers, 5);
+    printArray3(numbers, 5);
+
+    /* 
+    Truyền array vào hàm, không truyền size:   printArray1(numbers);
+    -> Mất thông tin về kích thước array
+    => numbers "decay" thành int*
+    Kích thước con trỏ:   8 bytes(64-bit)
+                          4 bytes(32-bit)
+    */
+
+    // Biến static (tồn tại suốt chương trình)
 
     return 0;
 }
